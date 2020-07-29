@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws2
+type: Opaque
+stringData:
+  accessKeyId: AKIAJF6RHCNGA4ZKVZ6A
+  secretAccessKey: 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
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name:  condition-log-test
+  labels:
+    serving.knative.dev/visibility: cluster-local
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/neffdev/conditionalization
+        env:
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom: 
+              secretKeyRef:
+                name: aws
+                key: accessKeyId
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom: 
+              secretKeyRef:
+                name: aws
+                key: secretAccessKey
+          - name: AWS_REGION
+            value: us-east-2
+          - name: BUCKET
+            value: eventbkt
+          - name: K_SINK
+            value: http://event-display.cond.dev.munu.io 
