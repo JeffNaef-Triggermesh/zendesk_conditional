@@ -4,8 +4,8 @@ metadata:
   name: aws2
 type: Opaque
 stringData:
-  accessKeyId: AKIAJF6RHCNGA4ZKVZ6A
-  secretAccessKey: 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
+  accessKeyId: 
+  secretAccessKey: 
 ---
 apiVersion: serving.knative.dev/v1
 kind: Service
